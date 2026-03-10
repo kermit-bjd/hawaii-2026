@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hawaii 2026 - Family Travel Itinerary</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: #f9fafb; color: #0f172a; }
+    header { padding: 1rem 1.5rem; background: #fff; box-shadow: 0 1px 0 rgba(15, 23, 42, 0.12); position: sticky; top: 0; }
+    h1 { margin: 0; font-size: 1.25rem; }
+    .grid { display: grid; gap: 1rem; padding: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .card { background: #fff; border: 1px solid rgba(148, 163, 184, 0.35); border-radius: .75rem; padding: 1rem; }
+    a.btn { display: inline-flex; align-items: center; gap: .5rem; margin: .25rem .25rem .25rem 0; padding: .6rem 1rem; border-radius: .5rem; border: 1px solid rgba(148, 163, 184, 0.5); background: #0ea5e9; color: #fff; text-decoration: none; font-weight: 600; }
+    a.btn.secondary { background: #fff; color: #0f172a; }
+    table { width: 100%; border-collapse: collapse; font-size: .95rem; margin-top: .75rem; }
+    th, td { border: 1px solid rgba(148, 163, 184, 0.35); padding: .6rem; text-align: left; }
+    th { background: rgba(148, 163, 184, 0.2); }
+    small { color: #64748b; }
+    .placeholder { border: 1px dashed rgba(148, 163, 184, 0.6); border-radius: .6rem; padding: .75rem; margin-top: .5rem; color: #475569; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: .85rem; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Hawaii 2026 Itinerary</h1>
+  <small>Share link (GitHub Pages): https://kermit-bjd.github.io/hawaii-2026/</small>
+</header>
+
+<div class="grid">
+  <div class="card">
+    <h2>Countdown to Departure</h2>
+    <p id="countdown" data-trip-date="">Set your departure date (YYYY-MM-DD) to start the countdown.</p>
+    <p><small>Tip: edit this file and set <code>data-trip-date</code> above when you know your exact date.</small></p>
+  </div>
+
+  <div class="card">
+    <h2>Quick Google Maps Buttons</h2>
+    <p>Update these with the places you actually want.</p>
+    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Honolulu+Port" target="_blank" rel="noopener">Honolulu Port</a>
+    <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Nawiliwili+Port+Kauai" target="_blank" rel="noopener">Kauai (Nawiliwili)</a>
+  </div>
+
+  <div class="card">
+    <h2>Weather</h2>
+    <p>Placeholder for your weather widget (or any embed you like).</p>
+    <div class="placeholder">
+      Weather widget goes here (for example: WeatherWidget.io embed).
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Schedule</h2>
+    <table>
+      <thead>
+        <tr><th>Day</th><th>Port/Plan</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Day 1</td><td>Honolulu</td><td>Embarkation</td></tr>
+        <tr><td>Day 2</td><td>Maui</td><td></td></tr>
+        <tr><td>Day 3</td><td>Hilo</td><td></td></tr>
+        <tr><td>Day 4</td><td>Kona</td><td></td></tr>
+        <tr><td>Day 5</td><td>Kauai</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+(function(){
+  const el = document.getElementById('countdown');
+  const dateString = (el && el.dataset.tripDate) || '';
+  if (!dateString) return;
+  const tripTime = new Date(dateString + 'T00:00:00').getTime();
+  if (isNaN(tripTime)) return;
+
+  const tick = () => {
+    const diff = tripTime - Date.now();
+    if (diff <= 0) {
+      el.textContent = "It's trip time!";
+      return;
+    }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    el.textContent = `${days}d ${hours}h ${mins}m`;
+  };
+
+  tick();
+  setInterval(tick, 60000);
+})();
+</script>
+</body>
+</html>
